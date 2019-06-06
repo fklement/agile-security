@@ -1,0 +1,7 @@
+<% if (!user) { %>
+	<h2>Welcome! Please log in.</h2>
+<% } else { %>
+	<h2>Your WebId is: <%= user.username %>.</h2>
+	<h2>And this is your certificate</h2>
+	<p>This is your certificate<%= user.certificate %>.</p>
+<% } %>

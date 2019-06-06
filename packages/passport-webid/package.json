@@ -1,0 +1,26 @@
+{
+  "name": "passport-webid",
+  "version": "v1.0.0",
+  "description": "Identification via WebID",
+  "author": "nopbyte <nopbyte@github.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agile-iot/agile-security.git",
+    "directory": "packages/passport-webid"
+  },
+  "main": "./lib/passport-webid",
+  "dependencies": {
+    "passport": "^0.3.2",
+    "webid": "^0.3.7"
+  },
+  "engines": {
+    "node": ">= 4.4.7"
+  },
+  "keywords": [
+    "passport",
+    "webid",
+    "auth",
+    "authn",
+    "authentication"
+  ]
+}

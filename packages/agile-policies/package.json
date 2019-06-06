@@ -1,0 +1,33 @@
+{
+  "name": "agile-policies",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-jsbeautifier": "^0.2.13"
+  },
+  "dependencies": {
+    "agile-audit": "^0.0.1",
+    "agile-upfront-leveldb": "^1.0.0",
+    "agile-upfront-locks": "^0.0.1",
+    "clone": "^2.1.1",
+    "UPFROnt": "git+https://github.com/nopbyte/UPFROnt",
+    "winston": "2.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agile-iot/agile-security.git",
+    "directory": "packages/agile-policies"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agile-iot/agile-policies/issues"
+  },
+  "homepage": "https://github.com/agile-iot/agile-policies#readme"
+}

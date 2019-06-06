@@ -1,0 +1,23 @@
+{
+  "name": "agile-upfront-locks",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agile-iot/agile-security.git",
+    "directory": "packages/agile-upfront-locks"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Agile-IoT/agile-security/issues"
+  },
+  "dependencies": {
+    "agile-audit": "^0.0.1",
+    "winston": "^2.4.0"
+  }
+}

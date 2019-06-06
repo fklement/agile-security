@@ -1,0 +1,35 @@
+{
+  "name": "agile-audit",
+  "version": "0.0.1",
+  "description": "module logging access to actuations and sensor data Edit",
+  "main": "lib/audit.js",
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-jsbeautifier": "^0.2.13",
+    "mocha": "6.1.4",
+    "deep-diff": "0.3.3",
+    "rmdir": "^1.2.0"
+  },
+  "scripts": {
+    "test": "mocha tests/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agile-iot/agile-security.git",
+    "directory": "packages/agile-audit"
+  },
+  "author": "nopbyte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nopbyte/agile-security/issues"
+  },
+  "dependencies": {
+    "http-errors": "^1.6.1",
+    "level": "^5.0.1",
+    "leveldown": "^5.1.0",
+    "levelup": "^1.3.9",
+    "timeframe-to-seconds": "0.0.4"
+  }
+}

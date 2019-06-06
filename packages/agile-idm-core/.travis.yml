@@ -1,0 +1,8 @@
+language: node_js
+env:
+  - DEBUG_IDM_CORE=1
+node_js:
+  - "4"
+  - "5"
+  - "6"
+  - "7"
