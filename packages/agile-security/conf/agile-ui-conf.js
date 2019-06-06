@@ -1,9 +1,22 @@
 var path = process.cwd();
 module.exports = {
   "gateway_id": "1",
+  // Config for leveldb
+  // "token-storage": {
+  //   "dbName": process.env.DATA + "/database_web", //for leveldb
+  //   "type": "leveldb",
+  //   "createTables": true
+  // },
+  // Config for mongodb
   "token-storage": {
-    "dbName": process.env.DATA+"/database_web",
-    "createTables": true
+    "createTables": true,
+    "type": "mongodb",
+    "host": "mongo",
+    "port": 27017,
+    "password": "secret",
+    "user": "agile",
+    "dbName": "admin",
+    "collection": "token"
   },
   "failureRedirect": "/login",
   "auth": {
@@ -42,7 +55,7 @@ module.exports = {
   "https_port": 1444,
   "https_port_with_client": 1443,
   "enabledStrategies": ["local"],
-  "cors": ["http://set-automatically:2000","http://set-automatically:3000"],
+  "cors": ["http://set-automatically:2000", "http://set-automatically:3000"],
   "gui": {
     "entities": {
       "/device": {

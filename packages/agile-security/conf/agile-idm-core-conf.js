@@ -1,13 +1,34 @@
 var path = process.cwd();
 module.exports = {
-  "storage": {
-    "dbName": process.env.DATA+"/database_"
+  // Config for leveldb
+  // storage: {
+  //   dbName: process.env.DATA + "/database_"
+  // },
+  // upfront_storage: {
+  //   module_name: "agile-upfront-leveldb",
+  //   type: "external",
+  //   dbName: process.env.DATA + "/database_",
+  //   collection: "policies"
+  // },
+  // Config for mongodb
+  storage: {
+    dbName: "admin",
+    type: "mongodb",
+    host: "mongo",
+    port: 27017,
+    password: "secret",
+    user: "agile",
+    entityCollection: "entities",
+    groupCollection: "groups",
   },
   upfront_storage: {
-    module_name: "agile-upfront-leveldb",
-    type: "external",
-    dbName: process.env.DATA+"/database_",
-    collection: "policies",
+    type: "mongodb",
+    host: "mongo",
+    port: 27017,
+    password: "secret",
+    user: "agile",
+    dbName: "admin",
+    collection: "policies"
   },
   upfront_locks: path + "/node_modules/agile-upfront-locks/Locks",
   upfront_actions: path + "/node_modules/agile-upfront-locks/Actions",
@@ -446,18 +467,18 @@ module.exports = {
       }
     }],
     "client": [{
-     "id": "AuthCodeClient",
+      "id": "AuthCodeClient",
       "name": "AuthCodeClient",
       "clientSecret": "Ultrasecretstuff",
       "redirectURI": "http://set-automatically:3002/auth/example/callback"
-    },{
-       "id": "ImplicitAuthClient",
-        "name": "ImplicitAuthClient",
-        "redirectURI": "http://set-automatically:2000/"
-    },{
-        "id": "ClientCredentialsClient",
-        "name": "ClientCredentialsClient",
-        "clientSecret": "Ultrasecretstuff"
+    }, {
+      "id": "ImplicitAuthClient",
+      "name": "ImplicitAuthClient",
+      "redirectURI": "http://set-automatically:2000/"
+    }, {
+      "id": "ClientCredentialsClient",
+      "name": "ClientCredentialsClient",
+      "clientSecret": "Ultrasecretstuff"
 
     }],
     "gateway": [{
@@ -466,7 +487,7 @@ module.exports = {
     }]
   },
   "audit": {
-    dbName: process.env.DATA+"/database_",
+    dbName: process.env.DATA + "/database_",
     //according to https://www.npmjs.com/package/timeframe-to-seconds,
     timeframe: '1m',
     //DETAILED=0, ONLY_IMPORTANT_STUFF=1
