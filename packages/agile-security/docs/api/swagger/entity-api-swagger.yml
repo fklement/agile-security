@@ -57,7 +57,7 @@ paths:
       -
         name: auth_type
         in: query
-        description: 'Authentication type, i.e. agile-local, github, google'
+        description: 'Authentication type, i.e. local, github, google'
         required: true
         type: string
       -
@@ -77,11 +77,11 @@ paths:
             $ref: '#/definitions/User'
           examples:
             application/json:
-              id: bob!@!agile-local
+              id: bob!@!local
               type: /user
-              owner: bob!@!agile-local
+              owner: bob!@!local
               user_name: bob
-              auth_type: agile-local
+              auth_type: local
         '401':
           description: 'Not authenticated'
         '403':
@@ -116,11 +116,11 @@ paths:
              $ref: '#/definitions/User'
           examples:
             application/json:
-              id: bob!@!agile-local
+              id: bob!@!local
               type: /user
-              owner: bob!@!agile-local
+              owner: bob!@!local
               user_name: bob
-              auth_type: agile-local
+              auth_type: local
         '401':
           description: 'Not authenticated'
         '403':
@@ -141,7 +141,7 @@ paths:
       -
         name: auth_type
         in: query
-        description: 'Authentication type, i.e. agile-local, github, google'
+        description: 'Authentication type, i.e. local, github, google'
         required: true
         type: string
       -
@@ -199,9 +199,9 @@ paths:
             application/json:
               id: bleA0E6F8B62304
               type: /user
-              owner: bob!@!agile-local
+              owner: bob!@!local
               user_name: bob
-              auth_type: agile-local
+              auth_type: local
         '401':
           description: 'Not authenticated'
         '403':
@@ -237,9 +237,9 @@ paths:
             application/json:
               id: bleA0E6F8B62304
               type: /user
-              owner: bob!@!agile-local
+              owner: bob!@!local
               user_name: bob
-              auth_type: agile-local
+              auth_type: local
         '401':
           description: 'Not authenticated'
         '403':
@@ -309,9 +309,9 @@ paths:
             application/json:
               id: bleA0E6F8B62304
               type: /user
-              owner: bob!@!agile-local
+              owner: bob!@!local
               user_name: bob
-              auth_type: agile-local
+              auth_type: local
 
   '/entity/search':
     post:
@@ -343,11 +343,11 @@ paths:
           examples:
             application/json:
               -
-                id: bob!@!agile-local
+                id: bob!@!local
                 type: /user
-                owner: bob!@!agile-local
+                owner: bob!@!local
                 user_name: bob
-                auth_type: agile-local
+                auth_type: local
               -
                 id: alice!@!github
                 type: /user
@@ -388,15 +388,15 @@ paths:
             $ref: '#/definitions/Group'
           examples:
             application/json:
-              owner: bob!@!agile-local
+              owner: bob!@!local
               group_name: family
               entities:
               -
-                id: bob!@!agile-local
+                id: bob!@!local
                 type: /user
-                owner: bob!@!agile-local
+                owner: bob!@!local
                 user_name: bob
-                auth_type: agile-local
+                auth_type: local
               -
                 id: fbd142fd2312
                 type: /sensor
@@ -458,7 +458,7 @@ paths:
             $ref: '#/definitions/Group'
           examples:
             application/json:
-              owner: bob!@!agile-local
+              owner: bob!@!local
               group_name: family
               entities: []
 
@@ -513,15 +513,15 @@ paths:
             $ref: '#/definitions/Group'
           examples:
             application/json:
-              owner: bob!@!agile-local
+              owner: bob!@!local
               group_name: family
               entities:
               -
-                id: bob!@!agile-local
+                id: bob!@!local
                 type: /user
-                owner: bob!@!agile-local
+                owner: bob!@!local
                 user_name: bob
-                auth_type: agile-local
+                auth_type: local
               -
                 id: fbd142fd2312
                 type: /sensor
@@ -554,15 +554,15 @@ paths:
             $ref: '#/definitions/Group'
           examples:
             application/json:
-              owner: bob!@!agile-local
+              owner: bob!@!local
               group_name: family
               entities:
               -
-                id: bob!@!agile-local
+                id: bob!@!local
                 type: /user
-                owner: bob!@!agile-local
+                owner: bob!@!local
                 user_name: bob
-                auth_type: agile-local
+                auth_type: local
 
         '401':
           description: 'Not authenticated'

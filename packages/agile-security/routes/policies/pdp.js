@@ -100,7 +100,7 @@ function RouterApi(tokenConf, idmcore, pdp, router) {
   );
 
   /*
-   curl  -H "Authorization: bearer $TOKEN" -H "Content-Type: application/json" -XPOST -d '{"actions": [{"entityId":"self", "entityType":"/gateway", "method":"write","field":"action.status"},{"entityId":"alice!@!agile-local", "entityType":"/user", "method":"read","field":"id"}]}' 'http://localhost:3000/api/v1/pdp/batch'
+   curl  -H "Authorization: bearer $TOKEN" -H "Content-Type: application/json" -XPOST -d '{"actions": [{"entityId":"self", "entityType":"/gateway", "method":"write","field":"action.status"},{"entityId":"alice!@!local", "entityType":"/user", "method":"read","field":"id"}]}' 'http://localhost:3000/api/v1/pdp/batch'
    result can have HTTP status code 401 or 403 and be unauthorized or it can be 200 and contain something like
    {"result":[false,true]}
    in this case the array matches one-to-one the actions in the query.

@@ -60,9 +60,9 @@ function applySpecialConfig(type, entity) {
       var fs = require('fs');
       var hostname = fs.readFileSync('/etc/hostname');
       hostname = hostname.toString().trim();
-      if (entity.redirectURI.indexOf("set-automatically") >= 0 && process.env.AGILE_HOST) {
+      if (entity.redirectURI && entity.redirectURI.indexOf("set-automatically") >= 0 && process.env.AGILE_HOST) {
         entity.redirectURI = entity.redirectURI.replace("set-automatically", process.env.AGILE_HOST);
-      } else if (entity.redirectURI.indexOf("set-automatically") >= 0 && hostname) {
+      } else if (entity.redirectURI && entity.redirectURI.indexOf("set-automatically") >= 0 && hostname) {
         entity.redirectURI = entity.redirectURI.replace("set-automatically", hostname);
       }
       resolve(entity);
@@ -81,7 +81,7 @@ function createEntity(idmcore, type, id, e, owner) {
     } else {
       var admin = {
         user_name: "root",
-        auth_type: "agile-local",
+        auth_type: "local",
         role: "admin"
       };
       var originalUrl = e.redirectURI;
@@ -96,6 +96,7 @@ function createEntity(idmcore, type, id, e, owner) {
         resolve(created);
       }).catch(function (error) {
         //this part updates the entities with url auto-generated on every boot
+
         if (error.statusCode === 409 &&
           process.env.AGILE_HOST &&
           e.redirectURI &&
@@ -130,7 +131,7 @@ function createUser(idmcore, user) {
     var user_id = ids.buildId(user.user_name, user.auth_type);
     var admin = {
       user_name: "root",
-      auth_type: "agile-local",
+      auth_type: "local",
       role: "admin"
     };
     if (user.password) {

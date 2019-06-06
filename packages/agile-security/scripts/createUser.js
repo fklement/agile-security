@@ -7,7 +7,7 @@ var saltrounds = 10;
 /*
 Examples of usage:
   To create a local user wit username bob and password secret:
-  node createUser.js --username=bob --password=secret  --auth=agile-local --role=admin
+  node createUser.js --username=bob --password=secret  --auth=local --role=admin
   To create a user wit username abc that will authenticate using github:
   node createUser.js --username=abc --auth=github
   node createUser.js --username=dp --auth=pam
@@ -29,12 +29,12 @@ var sections = [{
       name: 'auth',
       alias: 'p',
       typeLabel: '[underline]{String}',
-      description: 'this can be any authentication_type supported by AGILE-IDM. i.e.  "agile-local","github","google","webid"'
+      description: 'this can be any authentication_type supported by AGILE-IDM. i.e.  "local","github","google","webid"'
     }, {
       name: 'password (optional)',
       alias: 'p',
       typeLabel: '[underline]{String}',
-      description: 'This argument is the password used for the user, and it MUST be passed when  auth is "agile-local".'
+      description: 'This argument is the password used for the user, and it MUST be passed when  auth is "local".'
     }, {
       name: 'role (optional)',
       alias: 'r',
@@ -173,7 +173,7 @@ try {
       conf.upfront.pdp.ulocks.actions = "../" + conf.upfront.pdp.ulocks.actions;
     }
 
-    if (args.auth === "agile-local" && !args.password)
+    if (args.auth === "local" && !args.password)
       return help(new Error("When local authentication is used a password is required!"));
 
     if (args.username && args.auth) {

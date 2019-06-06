@@ -4,7 +4,7 @@ var express = require('express');
 function RouterPassport(router, conf) {
 
   //Local
-  router.route('/agile-local').get(function (req, res) {
+  router.route('/local').get(function (req, res) {
     var options = [{
       "name": "username",
       "type": "text",
@@ -15,12 +15,12 @@ function RouterPassport(router, conf) {
       "label": "password"
     }];
     res.render('local', {
-      auth_type: 'agile-local',
+      auth_type: 'local',
       fields: options
     });
   });
-  router.route('/agile-local').post(
-    passport.authenticate('agile-local' /*'github'*/ , {
+  router.route('/local').post(
+    passport.authenticate('local' /*'github'*/ , {
       successReturnToOrRedirect: '/',
       failureRedirect: conf.failureRedirect,
       //failureFlash: true

@@ -55,7 +55,7 @@ function RouterApi(conf, tokenConf, idmcore, router) {
   );
 
   //example to call tthis one
-  // curl -H "Authorization: bearer nNGNryDDZ4zQYeWYGYcnOdxJ90k9s6" 'http://localhost:3000/api/v1/entity/user/bob!@!agile-local'
+  // curl -H "Authorization: bearer nNGNryDDZ4zQYeWYGYcnOdxJ90k9s6" 'http://localhost:3000/api/v1/entity/user/bob!@!local'
   //returns entity with 200 if OK, else, it can return 404 if the entity is not found, 401 or 403 in case of security errors or 500 in case of unexpected situations
   router.route('/entity/:entity_type/:entity_id').get(
     passport.authenticate('agile-bearer', {
@@ -199,7 +199,7 @@ function RouterApi(conf, tokenConf, idmcore, router) {
   //returns 200 and the entity, or 401 or 403, in case of security issues, 422 in case a user is attempted to be created through this API, or 409 if entity already exists, 500 in case of unexpected situations
   //if no entities are found it returns an empty array and status code 200.
   //in the body the critieria specifying attribute type and value must be provided, it is an array of any size >1
-  //curl -H "Content-type: application/json" -H "Authorization: bearer 67LwTkbmAYEVHrNUzWCslonPK2VDGj"  -X POST -d '{"criteria":[{"attribute_type":"owner", "attribute_value":"bob!@!agile-local"},{"attribute_type":"name","attribute_value":"Example Consumer App"}]}' 'http://localhost:3000/api/v1/entity/search'
+  //curl -H "Content-type: application/json" -H "Authorization: bearer 67LwTkbmAYEVHrNUzWCslonPK2VDGj"  -X POST -d '{"criteria":[{"attribute_type":"owner", "attribute_value":"bob!@!local"},{"attribute_type":"name","attribute_value":"Example Consumer App"}]}' 'http://localhost:3000/api/v1/entity/search'
   router.route('/entity/search/').post(
     passport.authenticate('agile-bearer', {
       session: false

@@ -5,8 +5,8 @@ var IdmCore = require('agile-idm-core');
 /*
 Usage examples:
 Creates a client called Example Comsumer App with secret.
-node createClient.js --client=MyAgileClient2 --name="My first example as IDM client" --secret="Ultrasecretstuff" --owner=bob --auth_type=agile-local --uri=http://localhost:3002/auth/example/callback
-node createClient.js --client=ward-steward-2 --name="Example Consumer App" --secret="something truly secret" --owner=bob --auth_type=agile-local --uri=http://localhost:3002/auth/example-oauth2orize/callback
+node createClient.js --client=MyAgileClient2 --name="My first example as IDM client" --secret="Ultrasecretstuff" --owner=bob --auth_type=local --uri=http://localhost:3002/auth/example/callback
+node createClient.js --client=ward-steward-2 --name="Example Consumer App" --secret="something truly secret" --owner=bob --auth_type=local --uri=http://localhost:3002/auth/example-oauth2orize/callback
 
 
 Optionally one could add something like  --config=../example/oauth2orize-examples/database_   to store the entities in a different lcoation
@@ -46,7 +46,7 @@ var sections = [{
     name: 'auth_type (optional)',
     alias: 'k',
     typeLabel: '[underline]{String}',
-    description: 'authentication type for the owner. In the case of a local user created through the createUser.js scripts this value is "agile-local". If no value is passed the default value used is "agile-local"'
+    description: 'authentication type for the owner. In the case of a local user created through the createUser.js scripts this value is "local". If no value is passed the default value used is "local"'
   }]
 }, {
   header: "Configuration info (optional)",
@@ -161,7 +161,7 @@ try {
 
   var user = {
     user_name: "root",
-    auth_type: "agile-local",
+    auth_type: "local",
     role: "admin"
   };
   var client;

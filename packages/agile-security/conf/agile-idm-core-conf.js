@@ -1,21 +1,16 @@
-//{"target":{"type":"user"},"locks":[{"path":"hasId","args":["$owner"]}]
-//path of agile-security
 var path = process.cwd();
-
 module.exports = {
   "storage": {
-    "dbName": "database_"
+    "dbName": process.env.DATA+"/database_"
   },
   upfront_storage: {
     module_name: "agile-upfront-leveldb",
     type: "external",
-    dbName: "database_",
-    collection: "policies"
+    dbName: process.env.DATA+"/database_",
+    collection: "policies",
   },
   upfront_locks: path + "/node_modules/agile-upfront-locks/Locks",
   upfront_actions: path + "/node_modules/agile-upfront-locks/Actions",
-  /*upfront_locks: __dirname + "/../node_modules/agile-upfront-locks/Locks",
-  upfront_actions: __dirname + "/../node_modules/agile-upfront-locks/Actions",*/
   "policies": {
     "create_entity_policy": [
       // actions of an actor are not restricted a priori
@@ -26,24 +21,49 @@ module.exports = {
         op: "read"
       }
     ],
-    "top_level_policy": {
-      flows: [
-        // all properties can be read by everyone
-        {
+    "top_level_policy": [
+
+      // all properties can be read by everyone
+      {
+        op: "read"
+      },
+      // all properties can only be changed by the owner of the entity
+      {
+        op: "write",
+        locks: [{
+          lock: "hasType",
+          args: ["/user"]
+        }, {
+          lock: "isOwner"
+        }]
+      },
+      {
+        op: "write",
+        locks: [{
+          lock: "hasType",
+          args: ["/user"]
+        }, {
+          lock: "attrEq",
+          args: ["role", "admin"]
+        }]
+      }
+
+    ],
+    //specify what should happen if the policy does not comply
+    actions: {
+      "read": [{
+        action: "delete"
+      }]
+    },
+    //default policy for policy field
+    "policy-policy-root": {
+      attribute: "policies",
+      policy: [{
           op: "read"
         },
-        // all properties can only be changed by the owner of the entity
+        // by all users with role admin
         {
-          op: "write",
-          locks: [{
-            lock: "hasType",
-            args: ["/user"]
-          }, {
-            lock: "isOwner"
-          }]
-        },
-        {
-          op: "write",
+          op: "read",
           locks: [{
             lock: "hasType",
             args: ["/user"]
@@ -51,21 +71,6 @@ module.exports = {
             lock: "attrEq",
             args: ["role", "admin"]
           }]
-        }
-
-      ],
-      //specify what should happen if the policy does not comply
-      actions: {
-        "read": [{
-          action: "delete"
-        }]
-      }
-    },
-    //default policy for policy field
-    "policy-policy-root": {
-      attribute: "policies",
-      policy: [{
-          op: "read"
         },
         {
           op: "write",
@@ -94,7 +99,7 @@ module.exports = {
     },
     //restricts the policy composition tree (policy.policy) read only  = 1 (policy.policy.policy) = 2
     //in other terms 1 does not allow for policy updates, 2 allows for policy update but no meta-policy update, etc.
-    "policy-level": 2,
+    "policy-level": 1,
     "action-policy-root": {
       attribute: "actions",
       policy: [{
@@ -208,7 +213,9 @@ module.exports = {
             }]
           }
         ],
-        "credentials": [{
+        "credentials": [
+          // the property can only be read by the user itself
+          {
             op: "read",
             locks: [{
               lock: "hasType",
@@ -217,6 +224,7 @@ module.exports = {
               lock: "isOwner"
             }]
           },
+          // the property can be set by the user itself and
           {
             op: "write",
             locks: [{
@@ -314,7 +322,6 @@ module.exports = {
       }
     }
   },
-
   "forbidden-attribute-names": [
     'id',
     'type',
@@ -341,25 +348,25 @@ module.exports = {
           }
         }
       }
-
     },
     "required": ["name"]
   }, {
     "id": "/user",
-    "additionalProperties": true,
     "type": "object",
     "properties": {
       "user_name": {
         "type": "string"
       },
       "auth_type": {
-        "type": "string"
+        "type": "string",
+        "enum": ["local"]
       },
       "password": {
         "type": "string"
       },
       "role": {
-        "type": "string"
+        "type": "string",
+        "enum": ["admin"]
       },
       "credentials": {
         "type": "object",
@@ -383,6 +390,15 @@ module.exports = {
       }
     },
     "required": ["name"]
+  }, {
+    "id": "/group",
+    "type": "object",
+    "properties": {
+      "group_name": {
+        "type": "string"
+      }
+    },
+    "required": ["group_name"]
   }, {
     "id": "/gateway",
     "type": "object",
@@ -414,25 +430,35 @@ module.exports = {
         "type": "string"
       }
     },
-    "required": ["host", "port", "user", "password", "database"]
+    "required": ["host", "user", "password", "database"]
   }],
   "configure_on_boot": {
     "user": [{
-      "user_name": "bob",
-      "auth_type": "agile-local",
+      "user_name": "admin",
+      "auth_type": "local",
       "role": "admin",
-      "password": "secret"
+      "password": "secret",
+      "credentials": {
+        "service1": {
+          "key1": "NU9grueAtYdQE0L7DdFlID3NBZuQn7tyyNvjXUvqoQnJ2rox",
+          "key2": "Y1o-jUXIj66T1Ekb_Tjx"
+        }
+      }
     }],
     "client": [{
-      "id": "MyAgileClient2",
-      "name": "MyAgileClient2",
-      "clientSecret": "Ultrasecretstuff",
-      "redirectURI": "http://localhost:3002/auth/example/callback"
-    }, {
-      "id": "mysqlDB",
-      "name": "mysqlDB",
+     "id": "AuthCodeClient",
+      "name": "AuthCodeClient",
       "clientSecret": "Ultrasecretstuff",
       "redirectURI": "http://set-automatically:3002/auth/example/callback"
+    },{
+       "id": "ImplicitAuthClient",
+        "name": "ImplicitAuthClient",
+        "redirectURI": "http://set-automatically:2000/"
+    },{
+        "id": "ClientCredentialsClient",
+        "name": "ClientCredentialsClient",
+        "clientSecret": "Ultrasecretstuff"
+
     }],
     "gateway": [{
       "id": "self",
@@ -440,7 +466,7 @@ module.exports = {
     }]
   },
   "audit": {
-    dbName: "database_",
+    dbName: process.env.DATA+"/database_",
     //according to https://www.npmjs.com/package/timeframe-to-seconds,
     timeframe: '1m',
     //DETAILED=0, ONLY_IMPORTANT_STUFF=1
@@ -448,4 +474,5 @@ module.exports = {
     regex: '^actions'
     //regex in case we want to log only certain
   }
+
 };

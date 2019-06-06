@@ -114,12 +114,12 @@ definitions:
             type: string
             description : 'owner of the entity'
     example:
-      user: 'alice!@!agile-local'
+      user: 'alice!@!local'
       client: 'AGILE-OSJS'
       entity:
         id: 'dummy001122334455'
         type: '/device'
-        owner: 'bob!@!agile-local'
+        owner: 'bob!@!local'
       action: 'action.status'
       time: 1503488580709
 

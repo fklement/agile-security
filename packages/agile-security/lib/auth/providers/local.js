@@ -11,7 +11,7 @@ var bcrypt = require('bcrypt');
 
 function loadStrategy(conf, entityStorageConf) {
   var db = require('../../db')(conf, entityStorageConf);
-  var auth_type = "agile-local";
+  var auth_type = "local";
   var enabled = conf.enabledStrategies.filter(function (v) {
     return (v === auth_type);
   });

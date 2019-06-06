@@ -243,7 +243,7 @@ function init(tokenconf, entityStorageConf) {
         return done(null, false);
       }
       //Validate the user
-      db.users.findByUsernameAndAuthType(username, "agile-local", function (err, localUser) {
+      db.users.findByUsernameAndAuthType(username, "local", function (err, localUser) {
         if (err) {
           return done(err);
         }

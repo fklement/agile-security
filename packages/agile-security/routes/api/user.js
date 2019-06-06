@@ -120,7 +120,7 @@ function RouterApi(tokenConf, idmcore, router, strategies) {
   );
 
   //returns 200 and the entity, or 401 or 403, in case of security issues, 400 in case there is not enough parameters. or 409 if entity already exists, 500 in case of unexpected situations
-  //curl -H "Authorization: bearer ypr24DKllIbKlV3Ph8oWmZ7Pml3Wku" 'http://localhost:3000/api/v1/user/?user_name=bob&auth_type=agile-local'
+  //curl -H "Authorization: bearer ypr24DKllIbKlV3Ph8oWmZ7Pml3Wku" 'http://localhost:3000/api/v1/user/?user_name=bob&auth_type=local'
   router.route('/user/').get(
     passport.authenticate('agile-bearer', {
       session: false
@@ -149,7 +149,7 @@ function RouterApi(tokenConf, idmcore, router, strategies) {
     });
 
   //returns 200 if the user is deleted, or 401 or 403, in case of security issues, 400 in case there is not enough parameters. or 409 if entity already exists, 500 in case of unexpected situations
-  //curl -H "Authorization: bearer ypr24DKllIbKlV3Ph8oWmZ7Pml3Wku"  -X DELETE 'http://localhost:3000/api/v1/user/?user_name=bob&auth_type=agile-local'
+  //curl -H "Authorization: bearer ypr24DKllIbKlV3Ph8oWmZ7Pml3Wku"  -X DELETE 'http://localhost:3000/api/v1/user/?user_name=bob&auth_type=local'
   router.route('/user/').delete(
     passport.authenticate('agile-bearer', {
       session: false
