@@ -1,4 +1,4 @@
-#Configuration AGILE-Security
+# Configuration AGILE-Security
 To use MongoDB in AGILE security first start and configure MondoDB. If you run it through the stack you can use the following configurtion:
 
 ## Container
@@ -38,6 +38,13 @@ After starting the container, you need to log in to the database, e. g. through 
     db.createUser({user: "agile", pwd: "secret", roles: ["dbAdminAnyDatabase"]})
 
 ## Configure AGILE-Security
+### Default config
+By default AGILE-Security uses the LevelDB database configuration.  
+You can set the `AGILE_DB` environment variable at npm start to use MongoDB
+```shell
+export AGILE_DB=mongodb
+```
+
 ### agile-idm-core-conf.js
 In the configuration file you find the following sections:
 
