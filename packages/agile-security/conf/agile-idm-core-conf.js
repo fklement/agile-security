@@ -1,35 +1,42 @@
 var path = process.cwd();
-module.exports = {
-  // Config for leveldb
-  // storage: {
-  //   dbName: process.env.DATA + "/database_"
-  // },
-  // upfront_storage: {
-  //   module_name: "agile-upfront-leveldb",
-  //   type: "external",
-  //   dbName: process.env.DATA + "/database_",
-  //   collection: "policies"
-  // },
-  // Config for mongodb
-  storage: {
+var storage_config, upfront_config;
+
+if (process.env.AGILE_DB == "mongodb") {
+  storage_config = {
     dbName: "admin",
     type: "mongodb",
-    host: "mongo",
+    host: "localhost",
     port: 27017,
     password: "secret",
     user: "agile",
     entityCollection: "entities",
     groupCollection: "groups",
-  },
-  upfront_storage: {
+  };
+
+  upfront_config = {
     type: "mongodb",
-    host: "mongo",
+    host: "localhost",
     port: 27017,
     password: "secret",
     user: "agile",
     dbName: "admin",
     collection: "policies"
-  },
+  };
+} else {
+  storage_config = {
+    dbName: process.env.DATA + "/database_"
+  };
+
+  upfront_config = {
+    module_name: "agile-upfront-leveldb",
+    type: "external",
+    dbName: process.env.DATA + "/database_",
+    collection: "policies"
+  };
+}
+module.exports = {
+  storage: storage_config,
+  upfront_storage: upfront_config,
   upfront_locks: path + "/node_modules/agile-upfront-locks/Locks",
   upfront_actions: path + "/node_modules/agile-upfront-locks/Actions",
   "policies": {

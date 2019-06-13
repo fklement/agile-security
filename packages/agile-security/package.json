@@ -60,7 +60,7 @@
   },
   "scripts": {
     "test": "mocha tests/*.js",
-    "start": "export AGILE_HOST=localhost;export DEBUG_IDM_WEB=1;export EBUG_IDM_CORE=1;export DATA=`pwd`;node app.js ./conf"
+    "start": "export AGILE_HOST=localhost;export DEBUG_IDM_WEB=1;export EBUG_IDM_CORE=1;export DATA=`pwd`;export AGILE_DB=leveldb; node app.js ./conf"
   },
   "keywords": [
     "Identity",

@@ -1,23 +1,26 @@
 var path = process.cwd();
-module.exports = {
-  "gateway_id": "1",
-  // Config for leveldb
-  // "token-storage": {
-  //   "dbName": process.env.DATA + "/database_web", //for leveldb
-  //   "type": "leveldb",
-  //   "createTables": true
-  // },
-  // Config for mongodb
-  "token-storage": {
+if (process.env.AGILE_DB == "mongodb") {
+  token_storage_config = {
     "createTables": true,
     "type": "mongodb",
-    "host": "mongo",
+    "host": "localhost",
     "port": 27017,
     "password": "secret",
     "user": "agile",
     "dbName": "admin",
     "collection": "token"
-  },
+  };
+} else {
+  token_storage_config = {
+    "dbName": process.env.DATA + "/database_web", //for leveldb
+    "type": "leveldb",
+    "createTables": true
+  };
+}
+
+module.exports = {
+  "gateway_id": "1",
+  "token-storage": token_storage_config,
   "failureRedirect": "/login",
   "auth": {
     "github": {
@@ -55,7 +58,7 @@ module.exports = {
   "https_port": 1444,
   "https_port_with_client": 1443,
   "enabledStrategies": ["local"],
-  "cors": ["http://set-automatically:2000", "http://set-automatically:3000"],
+  "cors": ["http://" + process.env.AGILE_HOST + ":2000", "http://" + process.env.AGILE_HOST + ":3000"],
   "gui": {
     "entities": {
       "/device": {
