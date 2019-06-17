@@ -80,11 +80,17 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: secret
     ports:
       - 27017:27017/tcp
-    restart: **always**
+    restart: always
     volumes:
       - ./mongo/db/:/data/db
     command: mongod --auth
 ```
+
+If you need to debug or check if everything gets stored correctly inside the MongoDB database you can connect via the mongo cli client. Herefore use the following command:
+```shell
+mongodb://agile:secret@localhost:27017/admin
+```
+
 For more informations about the use of MongoDB inside of AGILE-Security you can have a look [here](/packages/agile-security/docs/MongoDB.md).
 
 ## Debug mode
