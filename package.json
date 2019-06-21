@@ -1,14 +1,29 @@
 {
-  "name": "agile-security-monorepo",
+  "name": "agile-security",
   "version": "1.0.0",
-  "description": "",
+  "description": "Security components for AGILE Gateway",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Agile-IoT/agile-security.git"
   },
+  "engines": {
+    "node": ">= 10.15.3",
+    "npm": ">= 6.9.0"
+  },
   "devDependencies": {
     "lerna": "^3.14.1"
   },
+  "scripts": {
+    "start": "npm -C ./packages/agile-security run start"
+  },
+  "keywords": [
+    "Identity",
+    "Management",
+    "Internet",
+    "of",
+    "Things",
+    "Gateway"
+  ],
   "author": "fklement",
   "license": "MIT"
 }

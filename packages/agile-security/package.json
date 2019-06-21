@@ -3,6 +3,17 @@
   "version": "3.9.0",
   "repository": "https://github.com/Agile-IoT/agile-security",
   "description": "Security components for AGILE Gateway",
+  "config": {
+    "agile": {
+      "host": "localhost",
+      "database": "leveldb"
+    },
+    "debug": {
+      "idm_web": 0,
+      "idm_core": 0,
+      "idm_storage": 0
+    }
+  },
   "main": "main.js",
   "directories": {
     "test": "tests"
@@ -60,7 +71,7 @@
   },
   "scripts": {
     "test": "mocha tests/*.js",
-    "start": "export AGILE_HOST=localhost;export DEBUG_IDM_WEB=1;export EBUG_IDM_CORE=1;export DATA=`pwd`;export AGILE_DB=leveldb; node app.js ./conf"
+    "start": "export AGILE_HOST=$npm_package_config_agile_host;export DEBUG_IDM_WEB=$npm_package_config_debug_idm_web;export EBUG_IDM_CORE=$npm_package_config_debug_idm_core;export DEBUG_IDM_STORAGE=$npm_package_config_debug_idm_storage;export DATA=`pwd`;export AGILE_DB=$npm_package_config_agile_database; node app.js ./conf"
   },
   "keywords": [
     "Identity",

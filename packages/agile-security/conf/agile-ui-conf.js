@@ -1,4 +1,6 @@
 var path = process.cwd();
+var token_storage_config;
+
 if (process.env.AGILE_DB == "mongodb") {
   token_storage_config = {
     "createTables": true,

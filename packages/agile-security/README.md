@@ -1,4 +1,4 @@
-agile-security[![Build Status](https://travis-ci.org/Agile-IoT/agile-security.svg?branch=master)](https://travis-ci.org/Agile-IoT/agile-security)
+[![Build Status](https://travis-ci.org/Agile-IoT/agile-security.svg?branch=master)](https://travis-ci.org/Agile-IoT/agile-security)
 
 
 # AGILE Security components (formerly Agile Security Web now includes the PDP, PAP and Audit components)

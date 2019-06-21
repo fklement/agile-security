@@ -52,19 +52,24 @@ Afterwards you will be able to link all local packages together and install the 
 lerna bootstrap
 ```
 
-Now you can switch to the agile-security package and run the component by doing
+Now you can start the agile-security component with running the following command:
 
 ```shell
-cd packages/agile-security
 npm start
 ```
 
 Afterwards, you will have a version of agile-security running in port 3000 in both cases. However, you still need to have an application to rely on agile-security as an IdP or as a PDP.  For this, please check our [samples](https://github.com/nopbyte/agile-security-samples) 
 
 ### Run with MongoDB
-To be able to use MongoDB as the database for our AGILE-Security component we can set the `AGILE_DB` environment variable at npm start.
-```shell
-export AGILE_DB=mongodb
+To be able to use MongoDB as the database for our AGILE-Security component we can set the `database` config variable inside the `./packages/agile-securiy/package.json`.
+```json
+"config": {
+  "agile": {
+    ...
+    "database": "mongodb"
+  },
+  ...
+},
 ```
 Now you can either use your own MongoDB installation or run the following docker container.
 ```yaml
@@ -95,16 +100,31 @@ For more informations about the use of MongoDB inside of AGILE-Security you can 
 
 ## Debug mode
 
-If you define the `DEBUG_IDM_WEB` on npm start as the following this module will print debugging information to stdout, and in case of exceptions, it will print the stack trace in the browser.
+If you define the `idm_web`  inside the `./packages/agile-securiy/package.json` as the following this module will print debugging information to stdout, and in case of exceptions, it will print the stack trace in the browser.
 
-```shell
-export DEBUG_IDM_WEB=1
+```json
+"config": {
+  ...
+  "debug": {
+    "idm_web": 0,
+    "idm_core": 0,
+    "idm_storage": 0
+  }
+},
 ```
 
 If no variable is set, or if any other value different than 1 is set, this component runs in quiet mode.
 
-To debug the agile-idm-core or the agile-idm-storage components that are within agile-security please set the environment variables `DEBUG_IDM_CORE`  or `DEBUG_IDM_STORAGE` to 1 respectively. These two components will log to stdout debugging information.
+To debug the agile-idm-core or the agile-idm-storage components that are within agile-security please set the config variables `idm_core`  or `idm_storage` to 1 respectively. These two components will log to stdout debugging information.
 
+## Testing
+
+To run all the defined tests inside the packages you can simply run
+```shell
+lerna run test
+```
+inside the root folder.  
+This will execute all defined `npm test` scripts inside the packages.
 
 ## Additional Documentation
 
