@@ -8,6 +8,7 @@ var dbconnection = require('agile-idm-entity-storage').connectionPool;
 var ulocks = require('ulocks');
 var db;
 
+var helper = require('../test-helpers');
 /*
 
   This test file is very similar to the one without the -policies ending. It just enables the PDP and the PEP properly, while the other one mocks up the security part.
@@ -110,23 +111,6 @@ var admin_auth = clone(admin);
 admin_auth.id = "bob!@!agile-local";
 admin_auth.type = "/user";
 
-function cleanDb(done) {
-  dbconnection("disconnect").then(function () {
-    rmdir(dbName + "_entities", function (err, dirs, files) {
-      rmdir(dbName + "_groups", function (err, dirs, files) {
-        db = null;
-        rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-          done();
-        });
-
-      });
-    });
-  }, function () {
-    throw Error("not able to close database");
-  });
-
-}
-
 function buildUsers(done) {
   var arr = [idmcore.getPap().setDefaultEntityPolicies(admin_auth.id, admin_auth.type),
     idmcore.getStorage().createEntity(admin_auth.id, admin_auth.type, admin_auth.id, admin_auth)
@@ -155,7 +139,7 @@ describe('Entities Api (with policies)', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when data is not there', function (done) {
@@ -209,7 +193,7 @@ describe('Entities Api (with policies)', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when attempting to update data that is not there', function (done) {
@@ -265,7 +249,7 @@ describe('Entities Api (with policies)', function () {
   describe('#delete and readEntity()', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     beforeEach(function (done) {
@@ -313,7 +297,7 @@ describe('Entities Api (with policies)', function () {
   describe('#search entity by attribute value', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     beforeEach(function (done) {
@@ -431,7 +415,7 @@ describe('Entities Api (with policies)', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     /*it('should return the list of policies of the entity', function (done) {

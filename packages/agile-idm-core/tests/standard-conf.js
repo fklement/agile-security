@@ -1,14 +1,39 @@
-module.exports = {
-  "storage": {
+var helper = require('../test-helpers');
+var storage_config, upfront_config;
+if (process.env.DB_TYPE == "mongodb") {
+  storage_config = {
+    dbName: "admin",
+    type: "mongodb",
+    host: "localhost",
+    port: 27017,
+    password: "secret",
+    user: "agile",
+    entityCollection: "entities",
+    groupCollection: "groups",
+  };
+  upfront_config = {
+    type: "mongodb",
+    host: "localhost",
+    port: 27017,
+    password: "secret",
+    user: "agile",
+    dbName: "admin",
+    collection: "policies"
+  };
+} else {
+  storage_config = {
     "dbName": "./database"
-  },
-  "upfront_storage": {
+  };
+  upfront_config = {
     module_name: "agile-upfront-leveldb",
     type: "external",
     dbName: "./pap-database",
     collection: "policies"
-  },
-  
+  };
+}
+module.exports = {
+  storage: storage_config,
+  upfront_storage: upfront_config,
   "policies": {
     "create_entity_policy": [
       // actions of an actor are not restricted a priori

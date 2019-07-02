@@ -6,6 +6,8 @@ var createError = require('http-errors');
 var fs = require('fs');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
 
+var helper = require('../test-helpers');
+
 /*
   This tests use (some policies). sometimes admin or another kind of user, although policies for the
   second kind of user are not really thoroughly checked.
@@ -46,26 +48,6 @@ var entity_1 = {
   "token": "DC 20500"
 };
 var group_name = "group";
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_groups", function (err, dirs, files) {
-          rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-            done();
-          });
-
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-
-  disconnect(c);
-}
 
 var user_info = {
   user_name: "6328602477442473",
@@ -116,7 +98,7 @@ describe('Groups Api with policies', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when group is not there', function (done) {
@@ -165,7 +147,7 @@ describe('Groups Api with policies', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when attemtpting to delete data is not there', function (done) {
@@ -212,7 +194,7 @@ describe('Groups Api with policies', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when attempting to add a non existing entity to a group', function (done) {
@@ -270,7 +252,7 @@ describe('Groups Api with policies', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 409 error when attempting to remove a non existing entity from a group', function (done) {

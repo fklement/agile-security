@@ -2,6 +2,7 @@ var IdmCore = require('../index');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
 var rmdir = require('rmdir');
 var fs = require('fs');
+var helper = require('../test-helpers');
 
 var conf = require('./standard-conf')
 var dbName = conf.storage.dbName;
@@ -18,25 +19,6 @@ var pepMockOk = {
     });
   }
 };
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_groups", function (err, dirs, files) {
-          db = null;
-          rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-            done();
-          });
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-  disconnect(c);
-}
 
 var PdpMockOk = {
   canRead: function (userInfo, entityInfo) {
@@ -91,7 +73,7 @@ describe('Api (Validation test)', function () {
   describe('#createEntity()', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 400 when an entity with a non-existing kind of entity is passed', function (done) {
@@ -174,5 +156,4 @@ describe('Api (Validation test)', function () {
       });
 
   });
-
 });

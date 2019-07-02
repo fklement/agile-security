@@ -8,6 +8,8 @@ var dbconnection = require('agile-idm-entity-storage').connectionPool;
 var db;
 //conf for the API (components such as storage and authentication for the API may be replaced during tests)
 
+var helper = require('../test-helpers');
+
 var rmdir = require('rmdir');
 var conf = require('./standard-conf')
 var dbName = conf.storage.dbName;
@@ -28,27 +30,6 @@ var entity_1 = {
   "name": "Barack Obam2a",
   "token": "DC 20500"
 };
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_groups", function (err, dirs, files) {
-          db = null;
-          rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-            done();
-          });
-
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-
-  disconnect(c);
-}
 
 var pepMockOk = {
   declassify: function (userInfo, entityInfo) {
@@ -113,7 +94,7 @@ describe('List Apis', function () {
   describe('#list entities by entity type', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when there is no entity in the database', function (done) {
@@ -178,7 +159,7 @@ describe('List Apis', function () {
   describe('#ListGroups()', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when group is not there', function (done) {

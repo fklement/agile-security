@@ -7,6 +7,7 @@ var conf = require('./entity-policies-conf');
 var Pdp = require('agile-policies').pdp;
 var Pap = require('agile-policies').pap;
 var dbName = conf.storage.dbName;
+var helper = require('../test-helpers');
 //override this object to get the pap for creating the fist user.
 IdmCore.prototype.getPap = function () {
   return this.pap;
@@ -18,25 +19,6 @@ IdmCore.prototype.getStorage = function () {
 var idmcore = new IdmCore(conf);
 var pdp = new Pdp(conf);
 var pap = new Pap(conf);
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_groups", function (err, dirs, files) {
-          db = null;
-          rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-            done();
-          });
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-  disconnect(c);
-}
 
 function buildUsers(done) {
 
@@ -115,7 +97,7 @@ describe('Api (set Policies in PAP)', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should enable any non-set subfield of actions field in the policy structure to be read and written according to the default policy in actions', function (done) {

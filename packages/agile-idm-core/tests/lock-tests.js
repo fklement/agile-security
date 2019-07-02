@@ -5,6 +5,7 @@ var fs = require('fs');
 var clone = require('clone');
 var conf = require('./lock-test-entity-policies-conf');
 var dbName = conf.storage.dbName;
+var helper = require('../test-helpers');
 //override this object to get the pap for creating the fist user.
 IdmCore.prototype.getPap = function () {
   return this.pap;
@@ -14,27 +15,6 @@ IdmCore.prototype.getStorage = function () {
   return this.storage;
 }
 var idmcore = new IdmCore(conf);
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_audit", function (err, dirs, files) {
-          rmdir(dbName + "_groups", function (err, dirs, files) {
-            db = null;
-            rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-              done();
-            });
-          });
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-  disconnect(c);
-}
 
 function buildUsers(done) {
 
@@ -90,7 +70,7 @@ describe('UsedLessThan lock', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should stop resolving with the password, after five actions on the password field', function (done) {

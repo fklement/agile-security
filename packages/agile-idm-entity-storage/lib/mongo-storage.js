@@ -360,13 +360,13 @@ function handleError(error, cb) {
 MongoStorage.prototype.close = function () {
   var that = this;
   return new Promise(function (resolve, reject) {
-    that.entities.close(function (r) {
-      console.log('entities db closed!');
-      that.groups.close(function (r) {
-        console.log('groups db closed!');
-        resolve();
-      });
-    });
+    // that.entities.close(function (r) {
+    //   console.log('entities db closed!');
+    //   that.groups.close(function (r) {
+    //     console.log('groups db closed!');
+    //     resolve();
+    //   });
+    // });
   });
 
 };
@@ -657,6 +657,16 @@ MongoStorage.prototype.removeEntityFromGroupPromise = function (group_name, owne
       });
   });
 };
+
+// MongoStorage.prototype.clearDatabasePromise = function () {
+//   return new Promise(function (resolve, reject) {
+//     .then(res => {
+//       resolve()
+//     }).catch(err => {
+//       handleError(err, reject)
+//     })
+//   });
+// }
 
 //attribute_constraints is an array of objects with the following properties: attribute_type, attribute_value
 //attribute_type is specified by a json path. Which allows to traverse attributes that are nested

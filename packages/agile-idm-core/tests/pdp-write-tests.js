@@ -5,6 +5,7 @@ var fs = require('fs');
 var clone = require('clone');
 var conf = require('./entity-policies-conf');
 var dbName = conf.storage.dbName;
+var helper = require('../test-helpers');
 
 //override this object to get the pap for creating the fist user.
 IdmCore.prototype.getPap = function () {
@@ -16,25 +17,6 @@ IdmCore.prototype.getStorage = function () {
 }
 
 var idmcore = new IdmCore(conf);
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_groups", function (err, dirs, files) {
-          db = null;
-          rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-            done();
-          });
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-  disconnect(c);
-}
 
 function buildUsers(done) {
 
@@ -88,7 +70,7 @@ describe('Api (PEP Write Test)', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 403 and conflicts array in the object when attempting to create an entity without the proper role', function (done) {
@@ -138,7 +120,7 @@ describe('Api (PEP Write Test)', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 403 and conflicts array when attempting to update  an entity\'s attribute without the proper role and not owner', function (done) {
@@ -213,7 +195,7 @@ describe('Api (PEP Write Test)', function () {
 
     afterEach(function (done) {
 
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should resolve  when attempting to update  an entity attribute with the proper role', function (done) {

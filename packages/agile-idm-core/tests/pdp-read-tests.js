@@ -6,6 +6,8 @@ var clone = require('clone');
 //{"target":{"type":"user"},"locks":[{"path":"hasId","args":["$owner"]}]
 var conf = require('./entity-policies-conf');
 var dbName = conf.storage.dbName;
+var helper = require('../test-helpers');
+
 //override this object to get the pap for creating the fist user.
 IdmCore.prototype.getPap = function () {
   return this.pap;
@@ -16,25 +18,6 @@ IdmCore.prototype.getStorage = function () {
 }
 
 var idmcore = new IdmCore(conf);
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_groups", function (err, dirs, files) {
-          db = null;
-          rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-            done();
-          });
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-  disconnect(c);
-}
 
 function buildUsers(done) {
 
@@ -88,7 +71,7 @@ describe('Api (PEP Read test)', function () {
     });
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should resolve with a declassified entity for different users (password not there)', function (done) {
@@ -233,7 +216,7 @@ describe('Api (PEP Read test)', function () {
 
     afterEach(function (done) {
 
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should resolve with an array without entities for which the attributes used in the query are not allowed to be read by the policy', function (done) {

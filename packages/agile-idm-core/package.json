@@ -13,7 +13,8 @@
     "clone": "2.1.2",
     "http-errors": "^1.5.0",
     "jsonschema": "^1.1.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "mongodb": "2.2.31"
   },
   "devDependencies": {
     "assert": "1.4.1",
@@ -29,7 +30,9 @@
     "winston": "2.3.1"
   },
   "scripts": {
-    "test": "mocha tests/*.js"
+    "test": "npm run test-leveldb; npm run test-mongodb",
+    "test-leveldb": "export DB_TYPE=leveldb; mocha tests/*.js --exit",
+    "test-mongodb": "export DB_TYPE=mongodb; mocha tests/*.js --exit"
   },
   "repository": {
     "type": "git",

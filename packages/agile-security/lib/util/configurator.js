@@ -58,7 +58,8 @@ function applySpecialConfig(type, entity) {
   return new Promise(function (resolve, reject) {
     if (type === "/client") {
       var fs = require('fs');
-      var hostname = fs.readFileSync('/etc/hostname');
+      // var hostname = fs.readFileSync('/etc/hostname');
+      var hostname = 'localhost';
       hostname = hostname.toString().trim();
       if (entity.redirectURI && entity.redirectURI.indexOf("set-automatically") >= 0 && process.env.AGILE_HOST) {
         entity.redirectURI = entity.redirectURI.replace("set-automatically", process.env.AGILE_HOST);

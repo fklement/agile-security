@@ -11,6 +11,8 @@ var rmdir = require('rmdir');
 var conf = require('./standard-conf');
 var dbName = conf.storage.dbName;
 
+var helper = require('../test-helpers');
+
 //default data for the tests
 var token = "6328602477442473";
 var user_info = {
@@ -28,27 +30,6 @@ var entity_1 = {
   "name": "Barack Obam2a",
   "token": "DC 20500"
 };
-
-function cleanDb(c) {
-  //disconnect in any case.
-  function disconnect(done) {
-    dbconnection("disconnect").then(function () {
-      rmdir(dbName + "_entities", function (err, dirs, files) {
-        rmdir(dbName + "_groups", function (err, dirs, files) {
-          db = null;
-          rmdir(conf.upfront.pap.storage.dbName + "_policies", function (err, dirs, files) {
-            done();
-          });
-
-        });
-      });
-    }, function () {
-      throw Error("not able to close database");
-    });
-  }
-
-  disconnect(c);
-}
 
 var pepMockOk = {
   declassify: function (userInfo, entityInfo) {
@@ -113,7 +94,7 @@ describe('Entities Api', function () {
   describe('#createEntity and readEntity()', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when data is not there', function (done) {
@@ -181,7 +162,7 @@ describe('Entities Api', function () {
   describe('#set attribute and read Entity()', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when attempting to update data that is not there', function (done) {
@@ -234,14 +215,14 @@ describe('Entities Api', function () {
         .then(function () {
           return idmcore.setEntityAttribute(user_info, entity_id, entity_type, "groups", "x");
         }).then(function (result) {
-        throw new Error("this attribute should not be allowed!");
-      }, function handlereject(r) {
-        if (r.statusCode === 409) {
-          done();
-        } else {
-          throw r;
-        }
-      });
+          throw new Error("this attribute should not be allowed!");
+        }, function handlereject(r) {
+          if (r.statusCode === 409) {
+            done();
+          } else {
+            throw r;
+          }
+        });
     });
 
     it('should update an entity by id and return the proper values afterwards', function (done) {
@@ -366,7 +347,7 @@ describe('Entities Api', function () {
   describe('#delete and readEntity()', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when attemtpting to delete data is not there', function (done) {
@@ -412,7 +393,7 @@ describe('Entities Api', function () {
   describe('#search entity by attribute value', function () {
 
     afterEach(function (done) {
-      cleanDb(done);
+      helper.cleanDb(done);
     });
 
     it('should reject with 404 error when there is no entity with attribute value and type', function (done) {

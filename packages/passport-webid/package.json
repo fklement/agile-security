@@ -22,5 +22,8 @@
     "auth",
     "authn",
     "authentication"
-  ]
+  ],
+  "scripts": {
+    "test": "npm test"
+  }
 }
