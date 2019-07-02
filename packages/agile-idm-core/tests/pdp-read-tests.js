@@ -1,11 +1,8 @@
 var IdmCore = require('../index');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
-var rmdir = require('rmdir');
-var fs = require('fs');
 var clone = require('clone');
 //{"target":{"type":"user"},"locks":[{"path":"hasId","args":["$owner"]}]
-var conf = require('./entity-policies-conf');
-var dbName = conf.storage.dbName;
+var conf = require('./entity-policies-conf')
 var helper = require('../test-helpers');
 
 //override this object to get the pap for creating the fist user.
@@ -37,7 +34,6 @@ function buildUsers(done) {
 }
 
 //default data for the tests
-var token = "6328602477442473";
 var user_info = {
   "user_name": "alice",
   "auth_type": "agile-local",

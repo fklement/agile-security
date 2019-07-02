@@ -1,20 +1,9 @@
 var IdmCore = require('../index');
 var clone = require('clone');
-var assert = require('assert');
-var deepdif = require('deep-diff');
-var createError = require('http-errors');
-var fs = require('fs');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
-
-//var EntityStorage = require('../../agile-idm-entity-storage/lib/level-storage');
-var db;
 //conf for the API (components such as storage and authentication for the API may be replaced during tests)
-var rmdir = require('rmdir');
 var conf = require('./entity-policies-conf');
-var dbName = conf.storage.dbName;
-
 var helper = require('../test-helpers');
-
 var user_info = {
   id: "6328602477442473!@!auth_type",
   entity_type: "/user",
@@ -24,7 +13,6 @@ var user_info = {
 };
 //default data for the tests
 var token = "6328602477442473";
-var action = "create";
 var entity_type = "/sensor";
 var entity_id = "323";
 var entity_id_324 = "324";

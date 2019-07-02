@@ -1,17 +1,7 @@
 var IdmCore = require('../index');
 var clone = require('clone');
-var assert = require('assert');
-var deepdif = require('deep-diff');
-var createError = require('http-errors');
-var fs = require('fs');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
-
-var db;
-var dbName = "./database";
-var rmdir = require('rmdir');
 var conf = require('./entity-policies-conf');
-var dbName = conf.storage.dbName;
-
 var helper = require('../test-helpers');
 
 IdmCore.prototype.getPap = function () {
@@ -23,9 +13,7 @@ IdmCore.prototype.getStorage = function () {
 }
 
 var idmcore = new IdmCore(conf);
-
 var group_name = "group";
-
 var elisa = {
   "user_name": "elisa",
   "auth_type": "agile-local",

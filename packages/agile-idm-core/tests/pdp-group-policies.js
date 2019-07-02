@@ -1,13 +1,7 @@
 var IdmCore = require('../index');
 var clone = require('clone');
-var assert = require('assert');
-var deepdif = require('deep-diff');
-var createError = require('http-errors');
-var fs = require('fs');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
-
 var helper = require('../test-helpers');
-
 /*
   This tests use (some policies). sometimes admin or another kind of user, although policies for the
   second kind of user are not really thoroughly checked.
@@ -19,14 +13,8 @@ var helper = require('../test-helpers');
 
 
 */
-
-var db;
-
 //conf for the API (components such as storage and authentication for the API may be replaced during tests)
-var dbName = "./database";
-var rmdir = require('rmdir');
 var conf = require('./entity-policies-conf');
-var dbName = conf.storage.dbName;
 //override this object to get the pap for creating the fist user.
 IdmCore.prototype.getPap = function () {
   return this.pap;

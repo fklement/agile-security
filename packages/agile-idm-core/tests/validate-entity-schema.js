@@ -1,11 +1,7 @@
 var IdmCore = require('../index');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
-var rmdir = require('rmdir');
-var fs = require('fs');
 var helper = require('../test-helpers');
-
 var conf = require('./standard-conf')
-var dbName = conf.storage.dbName;
 
 var pepMockOk = {
   declassify: function (userInfo, entityInfo) {
@@ -59,7 +55,6 @@ var PdpMockOk = {
 };
 
 //default data for the tests
-var token = "6328602477442473";
 var user_info = {
   id: "6328602477442473!@!auth_type",
   entity_type: "/User",

@@ -1,13 +1,8 @@
 var IdmCore = require('../index');
 var clone = require('clone');
-var assert = require('assert');
 var deepdif = require('deep-diff');
-var createError = require('http-errors');
-var fs = require('fs');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
 var ulocks = require('ulocks');
-var db;
-
 var helper = require('../test-helpers');
 /*
 
@@ -15,11 +10,7 @@ var helper = require('../test-helpers');
 
 */
 //conf for the API (components such as storage and authentication for the API may be replaced during tests)
-
-var rmdir = require('rmdir');
 var conf = require('./entity-policies-conf');
-var dbName = conf.storage.dbName;
-
 var additionalPolicy = {
   "files": [
     // the property can only be read by the user itself

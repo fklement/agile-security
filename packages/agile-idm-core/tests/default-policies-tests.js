@@ -1,12 +1,9 @@
 var IdmCore = require('../index');
 var dbconnection = require('agile-idm-entity-storage').connectionPool;
-var rmdir = require('rmdir');
-var fs = require('fs');
 var clone = require('clone');
 var conf = require('./entity-policies-conf');
 var Pdp = require('agile-policies').pdp;
 var Pap = require('agile-policies').pap;
-var dbName = conf.storage.dbName;
 var helper = require('../test-helpers');
 //override this object to get the pap for creating the fist user.
 IdmCore.prototype.getPap = function () {
@@ -18,7 +15,6 @@ IdmCore.prototype.getStorage = function () {
 }
 var idmcore = new IdmCore(conf);
 var pdp = new Pdp(conf);
-var pap = new Pap(conf);
 
 function buildUsers(done) {
 

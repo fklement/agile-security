@@ -9,6 +9,45 @@ var storage, upfront;
 The following config params are for either mongodb or leveldb.
 Depending on the environment variable DB_TYPE the appropriate configuration gets selected.
 */
+// exports.storage = function (dbtype) {
+//   if (dbtype == "mongodb") {
+//     return {
+//       dbName: "admin",
+//       type: "mongodb",
+//       host: "localhost",
+//       port: 27017,
+//       password: "secret",
+//       user: "agile",
+//       entityCollection: "entities",
+//       groupCollection: "groups",
+//     };
+//   } else {
+//     return {
+//       dbName: "./database"
+//     };
+//   }
+// };
+// exports.upfront = function (dbtype) {
+//   if (dbtype == "mongodb") {
+//     return {
+//       type: "mongodb",
+//       host: "localhost",
+//       port: 27017,
+//       password: "secret",
+//       user: "agile",
+//       dbName: "admin",
+//       collection: "policies"
+//     };
+//   } else {
+//     return {
+//       module_name: "agile-upfront-leveldb",
+//       type: "external",
+//       dbName: "./pap-database",
+//       collection: "policies"
+//     };
+//   }
+// };
+
 if (process.env.DB_TYPE == "mongodb") {
   storage = {
     dbName: "admin",
