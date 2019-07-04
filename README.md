@@ -60,7 +60,7 @@ npm start
 
 Afterwards, you will have a version of agile-security running in port 3000 in both cases. However, you still need to have an application to rely on agile-security as an IdP or as a PDP.  For this, please check our [samples](https://github.com/nopbyte/agile-security-samples) 
 
-### Run with MongoDB
+### <a name="runmongodb"></a>Run with MongoDB
 To be able to use MongoDB as the database for our AGILE-Security component we can set the `database` config variable inside the `./packages/agile-securiy/package.json`.
 ```json
 "config": {
@@ -119,12 +119,26 @@ To debug the agile-idm-core or the agile-idm-storage components that are within 
 
 ## Testing
 
+### Run predefined test set
+To run the test of `agile-security` and `agile-idm-core` you can execute
+```shell
+npm test
+```
+inside the root folder.  
+This will execute the tests for level-db an mongo-db inside those two packages.
+
+> !!! You need to have a running instance of MongoDB. Have a look here: [Setup a MongoDB Container](#runmongodb) !!! 
+
+
+### Run all defined tests
 To run all the defined tests inside the packages you can simply run
 ```shell
 lerna run test
 ```
 inside the root folder.  
 This will execute all defined `npm test` scripts inside the packages.
+
+> !!! Currently not all tests are passed. This may be due to tests that have not been adapted for working with MongoDB or other problems that have been fixed. !!!
 
 ## Additional Documentation
 

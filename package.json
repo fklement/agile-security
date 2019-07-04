@@ -14,7 +14,10 @@
     "lerna": "^3.14.1"
   },
   "scripts": {
-    "start": "npm -C ./packages/agile-security run start"
+    "start": "npm -C ./packages/agile-security run start",
+    "test": "npm run test-idm-core; npm run test-security",
+    "test-idm-core": "npm -C ./packages/agile-idm-core run test",
+    "test-security": "npm -C ./packages/agile-security run test"
   },
   "keywords": [
     "Identity",

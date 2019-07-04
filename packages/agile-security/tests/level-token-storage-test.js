@@ -1,9 +1,3 @@
-var IdmCore = require('../index');
-var clone = require('clone');
-var assert = require('assert');
-var deepdif = require('deep-diff');
-var fs = require('fs');
-var conf = require('../rpi-conf/agile-ui-conf')
 var connectionPoolPromisse = require('../lib/db/level/token-connection-pool');
 
 var db;
@@ -38,7 +32,7 @@ const levelConf = {
 const mongoConf = {
   "token-storage": {
     "type": "mongodb",
-    "host": "agilegw.local",
+    "host": "localhost",
     "port": 27017,
     "password": "secret",
     "user": "agile",
@@ -107,7 +101,6 @@ describe('Level Token Storage', function () {
     })
   });
 });
-
 
 describe('Mongo Token Storage', function () {
 
